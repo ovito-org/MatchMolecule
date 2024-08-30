@@ -2,18 +2,17 @@
 Match parts of molecules using query strings.
 
 ## Description / Examples
-This modifier allows you to select sections of molecules using query strings. The query strings use a simplied form of [SMILES](https://en.wikipedia.org/wiki/Simplified_Molecular_Input_Line_Entry_System):
+This modifier allows you to select sections of molecules using query strings. The queries employ a simplified version of SMILES, [SMILES](https://en.wikipedia.org/wiki/Simplified_Molecular_Input_Line_Entry_System),
+where molecules are defined using strings.
 
 ![Smile explanation image](https://upload.wikimedia.org/wikipedia/commons/0/00/SMILES.png)
 > Original by Fdardel, slight edit by DMacks, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons
 
-where molecules can be defined by strings.
-
 ### Selecting linear molecules
-In the simplest form `HOH` can be used to define the water (`H-O-H`) molecule. 
+For example, the string HOH defines the water molecule (H-O-H).
 
 ### Adding side chains
-To define more complex molecules one can use `()`. To select this submolecule,
+Use parentheses `()`, To define more complex molecules. To select the submolecule:
 ``` 
   O
    \
@@ -21,10 +20,10 @@ To define more complex molecules one can use `()`. To select this submolecule,
    /
 H-O
 ```
-one might use this query string `ON(OH)CC`. Here `(OH)` denotes a side chain which branches off from the preceeding `N` atom. 
+you might use the query string `ON(OH)CC`, where `(OH)` indicates a side chain branching off from the preceding `N` atom.
 
 ### Selecting multi-letter elements
-To select this group of atoms,
+To select this group of atoms:
 ```
 - C - Fe -
   |   |
@@ -32,13 +31,13 @@ To select this group of atoms,
       |
       H
 ```
-you could write the following query `C(H)"Fe"(OH)`. Note, that multi-letter chemical elements need to be enclosed by `""`. An equivalent formulation would be `C(H)"Fe"OH`.
+you could use the query `C(H)"Fe"(OH)`. Multi-letter chemical elements need to be enclosed in single `'` or double quotes `"`. An equivalent formulation would be `C(H)"Fe"OH`.
 
 ### Adding wildcards / placeholders
-If you want to match multiple sub-molecules you can use the `?` wildcard character. `H?H` would match both, the `H-O-H` and the `H-N-H` molecules (and any other molecule where 2 H atoms are connected by a singular bridge atom).
+Use the `?` wildcard to match multiple sub-molecules. For instance, `H?H` matches both the `H-O-H` and `H-N-H` molecules (and any other molecule where two `H` atoms are connected by a single bridge atom).
 
 ### Creating additional bonds
-This syntax can be limiting so you might need to manually add  bonds to your string. If you want to select this group atoms:
+This syntax can be limiting, so you might need to manually add bonds to your string. To select this group of atoms:
 ```
 - C - N 
     /   \*
@@ -46,7 +45,7 @@ This syntax can be limiting so you might need to manually add  bonds to your str
    \     /
     C - C
 ```
-Here you could write `CNCCCCC`. This would select all atoms, however, you would be missing the bond tagged by the `*` in the picture. In such cases you can use numbers to tag atoms. Atoms with the same nummerical tag will be connected by bonds. This query string `CN1CCCC1C` would correctly select all atoms and bonds shown in the image. Here these two atoms (tagged 1) would be connected to form the `*` highlghted bond.
+Use `CNCCCCC` to select all atoms in this sub-molecule. However, to include the bond marked with `*`, use numerical tags to link atoms. The query string `CN1CCCC1C` correctly selects all atoms and bonds shown in the image, including the bond marked with `*`:
 ```
 - C - N1
     /   \*
@@ -56,9 +55,9 @@ Here you could write `CNCCCCC`. This would select all atoms, however, you would 
 ```
 
 ## Parameters 
-- `query` / "Query": Query string used to select the atoms and bonds.
-- `selectParticles` / "Select particles": Create a selection for the particles selected by the query string. 
-- `selectBonds` / "Select bonds": Create a selection for the bonds defined by the query string. 
+- `query` / "Query": Query string used to select atoms and bonds.
+- `selectParticles` / "Select particles": Create a selection for the particles defined by the query string.
+- `selectBonds` / "Select bonds": Create a selection for the bonds defined by the query string.
 
 ## Installation
 - OVITO Pro [integrated Python interpreter](https://docs.ovito.org/python/introduction/installation.html#ovito-pro-integrated-interpreter):
