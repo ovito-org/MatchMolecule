@@ -45,7 +45,15 @@ This syntax can be limiting, so you might need to manually add bonds to your str
    \     /
     C - C
 ```
-Use `CNCCCCC` to select all atoms in this sub-molecule. However, to include the bond marked with `*`, use numerical tags to link atoms. The query string `CN1CCCC1C` correctly selects all atoms and bonds shown in the image, including the bond marked with `*`:
+Use `CNCCCCC` to select all atoms in this sub-molecule. This would give you the following selection:
+```
+- C - N 
+    /   
+   C      C - C -
+   \     /
+    C - C
+```
+where one ring closing bond is missing. Numerical tags can be used to include this bond (marked with `*` in the initial image). The query string `CN1CCCC1C` correctly selects all atoms and bonds shown in the image, including the bond marked with `*`:
 ```
 - C - N1
     /   \*
@@ -53,6 +61,7 @@ Use `CNCCCCC` to select all atoms in this sub-molecule. However, to include the 
    \     /
     C - C
 ```
+All atoms tagged with the same number will be linked, here `N1` and `C1` both having numerical tag `1`.
 
 ## Parameters 
 - `query` / "Query": Query string used to select atoms and bonds.
