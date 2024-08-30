@@ -3,24 +3,25 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "[[PackageName]]"
-version = "[[Version number]]"
-description = "[[Short description]]"
+name = "MatchMolecule"
+version = "2024.1"
+description = "Match parts of molecules using query strings"
 keywords = ["ovito", "ovito-extension"]
-authors = [{name = "[[Author 1 name]]", email = "[[Author 1 email]]"}, {name = "[[Author 2 name]]", email = "[[Author 2 email]]"}]
-maintainers = [{name = "[[Maintainer 1 name]]", email = "[[Maintainer 1 email]]"}]
-license = {text = "[[License]]"}
+authors = [{name = "Daniel Utt", email = "utt@ovito.org"}]
+maintainers = [{name = "Daniel Utt", email = "utt@ovito.org"}]
+license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 dependencies = [
-    "ovito >= 3.9.1",
+    "ovito >= 3.10.6",
+    "networkx >= 3.0",
 ]
 
 [project.urls]
-repository = "[[Repository Link]]"
+repository = "https://github.com/ovito-org/MatchMolecule"
 
 [project.entry-points.'OVITO.Modifier']
-"[[Human readable modifier name]]" = "[[PackageName]]:[[ModifierName]]"
+"Match Molecule" = "MatchMolecule:MatchMolecule"
 
 [tool.setuptools.packages.find]
 where = ["src"]

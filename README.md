@@ -1,34 +1,79 @@
-# Python Modifier Template
+# Match Molecule
+Match parts of molecules using query strings.
 
-Template for a custom Python-based modifier that hooks into OVITO and can easily be shared with other users.
+## Description / Examples
+This modifier allows you to select sections of molecules using query strings. The query strings use a simplied form of [SMILES](https://en.wikipedia.org/wiki/Simplified_Molecular_Input_Line_Entry_System):
 
-This repository contains a template for creating your own [Python script modifier](https://docs.ovito.org/python/introduction/custom_modifiers.html), 
-which can be installed into *OVITO Pro* or the [`ovito`](https://pypi.org/project/ovito/) Python module using *pip*.
+![Smile explanation image](https://upload.wikimedia.org/wikipedia/commons/0/00/SMILES.png)
+> Original by Fdardel, slight edit by DMacks, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons
 
-## Getting Started
+where molecules can be defined by strings.
 
-1. Click the "Use this template" button to create your own repository based on this template.
-2. Rename `src/PackageName` to reflect the name of your modifier.
-3. Implement your [modifier](https://docs.ovito.org/python/introduction/custom_modifiers.html#advanced-interface) in [`src/PackageName/__init__.py`](src/PackageName/__init__.py). If your modifier needs access to more than one frame of a trajectory, you can uncomment and implement the `input_caching_hints` method. Otherwise, you can delete it. More details on this method can be found in the [OVITO Python docs](https://www.ovito.org/docs/current/python/introduction/custom_modifiers.html#writing-custom-modifiers-advanced-interface). 
-4. Fill in the [`pyproject.toml`](pyproject.toml) file. Fields that need to be replaced with your information are enclosed in descriptive `[[field]]` tags. Please make sure to include ovito>=3.9.1 as a dependency. Depending on your needs, you can add additional fields to the `pyproject.toml` file. Information can be found [here](https://setuptools.pypa.io/en/latest/userguide/index.html).
-5. Fill in the [`README_Template.md`](README_Template.md) file. Again, the `[[fields]]` placeholders should guide you. Feel free to add other sections like "Images", "Citation", or "References" as needed.
-6. Add meaningful examples and data sample files to the `examples` directory to help others understand the use of your modifier.
-7. Pick a license for your project and replace the current (MIT) [`LICENSE`](LICENSE) file with your license. If you keep the MIT license, please update the name and year in the current file.
-8. Once you're done, rename `README_Template.md` to `README.md`, replacing this file.
+### Selecting linear molecules
+In the simplest form `HOH` can be used to define the water (`H-O-H`) molecule. 
 
-## Testing
-This repository is configured to enable automated testing using the [pytest](https://docs.pytest.org/en/7.4.x/) framework. Tests are automatically executed after each push to the main branch. To set up and activate automated testing, follow these two steps:
+### Adding side chains
+To define more complex molecules one can use `()`. To select this submolecule,
+``` 
+  O
+   \
+     N - C - C -
+   /
+H-O
+```
+one might use this query string `ON(OH)CC`. Here `(OH)` denotes a side chain which branches off from the preceeding `N` atom. 
 
-1. Write your tests in the `test/test_modifier.py` file. You can also use other filenames that adhere to the pytest requirements.
-2. Open the `.github/workflows/python-tests.yml` file and remove the `if: ${{ false }}` condition on line 15.
+### Selecting multi-letter elements
+To select this group of atoms,
+```
+- C - Fe -
+  |   |
+  H   O
+      |
+      H
+```
+you could write the following query `C(H)"Fe"(OH)`. Note, that multi-letter chemical elements need to be enclosed by `""`. An equivalent formulation would be `C(H)"Fe"OH`.
 
-If needed, you can also adjust the operating system and Python versions by modifying the following lines:
-```yaml
-os: [ubuntu-latest, macos-latest, windows-latest]
-python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+### Adding wildcards / placeholders
+If you want to match multiple sub-molecules you can use the `?` wildcard character. `H?H` would match both, the `H-O-H` and the `H-N-H` molecules (and any other molecule where 2 H atoms are connected by a singular bridge atom).
+
+### Creating additional bonds
+This syntax can be limiting so you might need to manually add  bonds to your string. If you want to select this group atoms:
+```
+- C - N 
+    /   \*
+   C      C - C -
+   \     /
+    C - C
+```
+Here you could write `CNCCCCC`. This would select all atoms, however, you would be missing the bond tagged by the `*` in the picture. In such cases you can use numbers to tag atoms. Atoms with the same nummerical tag will be connected by bonds. This query string `CN1CCCC1C` would correctly select all atoms and bonds shown in the image. Here these two atoms (tagged 1) would be connected to form the `*` highlghted bond.
+```
+- C - N1
+    /   \*
+   C      C1 - C -
+   \     /
+    C - C
 ```
 
-An example can be found [here](https://github.com/ovito-org/GenerateRandomSolution).
+## Parameters 
+- `query` / "Query": Query string used to select the atoms and bonds.
+- `selectParticles` / "Select particles": Create a selection for the particles selected by the query string. 
+- `selectBonds` / "Select bonds": Create a selection for the bonds defined by the query string. 
 
-As of August 16, 2023, according to the [GitHub documentation](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions), *"GitHub Actions usage is free for standard GitHub-hosted runners in public repositories, and for self-hosted runners."* Please refer to the GitHub documentation if you are uncertain about incurring costs.
+## Installation
+- OVITO Pro [integrated Python interpreter](https://docs.ovito.org/python/introduction/installation.html#ovito-pro-integrated-interpreter):
+  ```
+  ovitos -m pip install --user git+https://github.com/ovito-org/MatchMolecule.git
+  ``` 
+  The `--user` option is recommended and [installs the package in the user's site directory](https://pip.pypa.io/en/stable/user_guide/#user-installs).
 
+- Other Python interpreters or Conda environments:
+  ```
+  pip install git+https://github.com/ovito-org/MatchMolecule.git
+  ```
+
+## Technical information / dependencies
+- Tested on OVITO version 3.10.6
+
+## Contact
+- Daniel Utt (utt@ovito.org)
