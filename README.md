@@ -63,6 +63,33 @@ where one ring closing bond is missing. Numerical tags can be used to include th
 ```
 All atoms tagged with the same number will be linked, here `N1` and `C1` both having numerical tag `1`.
 
+### Application selecting O-C-O
+To select all O-C-O groups in this molecule:
+![oco_example_1](examples/Example_01_01.png)
+the following query string `OCO` can be used:
+![oco_example_2](examples/Example_01_02.png)
+This example can be found in *examples/Example_01.ovito* and *examples/Example_01.py*.
+
+### Application selecting rings and bridge atoms
+To select all 5 rings containing 4 C and 1 N atom from this structure:
+![ring_example_1](examples/Example_02_01.png)
+The query string `N1CCCC1` can be used:
+![ring_example_2](examples/Example_02_03.png)
+Here the `N1` and `C1` tags have to be used to ensure that the ring is closed. The position of the closing bond is not unique.
+
+Alternative to select:
+```
+C
+ \
+   N - C
+ /
+C
+```
+The query string `CN(C)C` can be used. The resulting selection is shown here:
+![ring_example_3](examples/Example_02_02.png)
+
+These two examples can be found in *examples/Example_02.ovito*, *examples/Example_02.py*, *examples/Example_03.ovito*, and *examples/Example_03.py*.
+
 ## Parameters 
 - `query` / "Query": Query string used to select atoms and bonds.
 - `selectParticles` / "Select particles": Create a selection for the particles defined by the query string.
