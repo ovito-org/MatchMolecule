@@ -1,5 +1,5 @@
 #### Match Molecule ####
-# Match parts of molecules using query strings.
+# Match parts of molecules using SMILES like query strings.
 
 import networkx as nx
 import numpy as np

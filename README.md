@@ -1,5 +1,5 @@
 # Match Molecule
-Match parts of molecules using query strings.
+Match parts of molecules using SMILES like query strings.
 
 ## Description / Examples
 This modifier allows you to select sections of molecules using query strings. The queries employ a simplified version of SMILES, [SMILES](https://en.wikipedia.org/wiki/Simplified_Molecular_Input_Line_Entry_System),
