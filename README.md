@@ -91,9 +91,13 @@ The query string `CN(C)C` can be used. The resulting selection is shown here:
 These two examples can be found in *examples/Example_02.ovito*, *examples/Example_02.py*, *examples/Example_03.ovito*, and *examples/Example_03.py*.
 
 ## Parameters 
-- `query` / "Query": Query string used to select atoms and bonds.
-- `selectParticles` / "Select particles": Create a selection for the particles defined by the query string.
-- `selectBonds` / "Select bonds": Create a selection for the bonds defined by the query string.
+
+| GUI name             | Python name       | Description                                                       | Default value |
+|----------------------|-------------------|-------------------------------------------------------------------|---------------|
+| **Query**            | `query`           | Query string used to select atoms and bonds.                      | `""`          |
+| **Select particles** | `selectParticles` | Create a selection for the particles defined by the query string. | `True`        |
+| **Select bonds**     | `selectBonds`     | Create a selection for the bonds defined by the query string.     | `True`        |
+
 
 ## Installation
 - OVITO Pro [integrated Python interpreter](https://docs.ovito.org/python/introduction/installation.html#ovito-pro-integrated-interpreter):
