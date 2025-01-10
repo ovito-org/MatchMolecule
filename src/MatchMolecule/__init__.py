@@ -143,10 +143,11 @@ class MatchMolecule(ModifierInterface):
                         np.isin(topo[:, 0], match), np.isin(topo[:, 1], match)
                     ),
                 )
-
-        data.attributes["MatchMolecule.Particles.Selection.Count"] = np.count_nonzero(
-            selection
-        )
-        data.attributes["MatchMolecule.Bonds.Selection.Count"] = np.count_nonzero(
-            bond_selection
-        )
+        if self.selectParticles:
+            data.attributes["MatchMolecule.Particles.Selection.Count"] = (
+                np.count_nonzero(selection)
+            )
+        if self.selectBonds:
+            data.attributes["MatchMolecule.Bonds.Selection.Count"] = np.count_nonzero(
+                bond_selection
+            )
