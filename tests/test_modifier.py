@@ -7,17 +7,12 @@ from MatchMolecule import MatchMolecule
 
 @pytest.fixture
 def nylon_pipeline():
-    return import_file(
-        "https://gitlab.com/ovito-org/ovito-sample-data/-/raw/master/LAMMPS/tiny_nylon.data?ref_type=heads",
-        atom_style="full",
-    )
+    return import_file("tiny_nylon.data", atom_style="full")
 
 
 @pytest.fixture
 def gw_pipeline():
-    return import_file(
-        "https://files.rcsb.org/download/1G9W.pdb",
-    )
+    return import_file("1G9W.pdb")
 
 
 def test_example_01(nylon_pipeline):
